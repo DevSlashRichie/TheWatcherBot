@@ -16,21 +16,11 @@ public class GCHandler {
     }
 
     public GuildConfiguration getGuild(String ID) {
-
-        GuildConfiguration requied = null;
-
-        for (GuildConfiguration guild : guilds) {
-            if (guild.getID().equals(ID)) {
-                requied = guild;
-                break;
-            }
-        }
-
-        if(requied == null) {
-            requied = new GuildConfiguration(ID);
-            registerGuild(requied);
-        }
-        return requied;
+        return guilds.stream().filter(g -> g.getID().equals(ID)).findAny().orElseGet(() -> {
+            GuildConfiguration newConfiguration = new GuildConfiguration(ID);
+            registerGuild(newConfiguration);
+            return newConfiguration;
+        });
     }
 
     public Set<GuildConfiguration> getGuilds() {

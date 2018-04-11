@@ -20,7 +20,8 @@ public class MessageUtils {
     public static void sendMessage(Message message, MessageChannel messageChannel, int time) {
         if(messageChannel instanceof TextChannel && !canTalk((TextChannel) messageChannel)) return;
         messageChannel.sendMessage(message).queue(m -> {
-            m.delete().queueAfter(time, TimeUnit.SECONDS);
+            if(time != -1)
+                m.delete().queueAfter(time, TimeUnit.SECONDS);
         });
 
     }

@@ -1,7 +1,6 @@
 package me.richdev.TheWatcher;
 
-import com.google.gson.GsonBuilder;
-import me.richdev.TheWatcher.Commands.Commands.GeneralCommands;
+import me.richdev.TheWatcher.Commands.CommandHandler;
 import me.richdev.TheWatcher.GuildSystem.GCHandler;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -25,15 +24,13 @@ public class Main {
         try {
             jda = new JDABuilder(AccountType.BOT)
                     .setToken("NDMxNzA3OTgwNzAyOTQxMTk0.DairIA.KNKFz_X25FQBrlzJ6FPCz0CsmUE") // THE WATCHER
-                    //.setToken("Mzk5OTg2ODUyMzU2MTYxNTM2.Dak7hA.acy6XUCqdHnvt8n-V8xzI4XtSQ4") // APRIL
-                    //.setToken("mfa.obZCiAGA8rwXF5jQgK0rXGdaJAPOwiciG7u2IASI77nj2pUHFmV19vnOSgyM4Kpm-OA0rYGV7OrIbkbxHODH") // SELF bOT
                     .setGame(Game.playing(">help || By RichDev"))
                     .buildAsync();
         } catch (LoginException e) {
             e.printStackTrace();
             return;
         }
-        jda.addEventListener(new GeneralCommands());
+        jda.addEventListener(new CommandHandler());
         jda.addEventListener(new Listener());
 
         instance = this;

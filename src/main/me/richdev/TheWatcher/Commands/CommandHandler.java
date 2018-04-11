@@ -5,11 +5,12 @@ import me.richdev.TheWatcher.GuildSystem.GuildConfiguration;
 import me.richdev.TheWatcher.Main;
 import me.richdev.TheWatcher.Utils.MessageUtils;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -48,7 +49,7 @@ public class CommandHandler extends ListenerAdapter {
 
          CommandInfo commandInfo = search.getClass().getAnnotation(CommandInfo.class);
 
-        if(!commandInfo.fromPrivateChat()) {
+        if(!commandInfo.fromPrivateChat() && e.isFromType(ChannelType.PRIVATE)) {
             MessageUtils.sendMessage("**Este comando solo se puede usar en una guild.**", e.getChannel(), 10);
         } else {
             try {

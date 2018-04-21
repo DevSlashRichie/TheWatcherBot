@@ -1,7 +1,9 @@
 package me.richdev.TheWatcher;
 
-import me.richdev.TheWatcher.GuildSystem.GuildConfiguration;
-import net.dv8tion.jda.core.entities.*;
+import me.richdev.TheWatcher.GuildSystem.GuildInfo;
+import net.dv8tion.jda.core.entities.ChannelType;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -17,8 +19,7 @@ public class Listener extends ListenerAdapter {
         System.out.println(event.getAuthor().getName() + "#"  + event.getAuthor().getDiscriminator() + " >> " + event.getMessage().getContentDisplay());
 
         if(event.getAuthor().getName().equals("RichBoy")) {
-
-            GuildConfiguration gc = Main.getInstance().getGuildsHandler().getGuild(event.getGuild().getId());
+            GuildInfo gc = Main.getInstance().getGuildsHandler().getGuild(event.getGuild().getId());
 
             if(gc != null) {
 
@@ -30,15 +31,16 @@ public class Listener extends ListenerAdapter {
                         fn.append(all[i]).append(" ");
                     }
 
-                    gc.setWelcomeMessage(fn.toString());
+                    // gc.setWelcomeMessage(fn.toString());
                     event.getMessage().delete().queue();
                     return;
                 }
 
                 event.getMessage().delete().queue();
+                /*
                 event.getTextChannel().sendMessage(gc.getWelcomeMessage()
                         .replace("{user.name}", event.getAuthor().getAsMention()))
-                        .queue();
+                        .queue();*/
                 return;
             } else {
                 System.out.println("NOT FOUND GUILD.");

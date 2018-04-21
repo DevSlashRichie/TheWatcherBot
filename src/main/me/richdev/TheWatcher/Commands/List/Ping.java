@@ -6,7 +6,7 @@ import me.richdev.TheWatcher.Commands.CommandInfo;
 import net.dv8tion.jda.core.entities.ChannelType;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-@CommandInfo(aliases = { "ping", "p" }, permissionGroup = "", fromPrivateChat = true)
+@CommandInfo(aliases = { "ping", "p" }, permissionGroup = "", fromPrivateChat = true, descriptionID = "")
 public class Ping extends Command {
 
     @Override

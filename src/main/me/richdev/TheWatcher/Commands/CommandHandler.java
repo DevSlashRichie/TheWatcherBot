@@ -1,7 +1,8 @@
 package me.richdev.TheWatcher.Commands;
 
+import me.richdev.TheWatcher.Commands.List.GetMyGold;
 import me.richdev.TheWatcher.Commands.List.Ping;
-import me.richdev.TheWatcher.GuildSystem.GuildConfiguration;
+import me.richdev.TheWatcher.GuildSystem.GuildInfo;
 import me.richdev.TheWatcher.Main;
 import me.richdev.TheWatcher.Utils.MessageUtils;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -22,6 +23,7 @@ public class CommandHandler extends ListenerAdapter {
         registeredCommands = new HashSet<>();
 
         registeredCommands.add(new Ping());
+        registeredCommands.add(new GetMyGold());
     }
 
     @Override
@@ -65,7 +67,7 @@ public class CommandHandler extends ListenerAdapter {
         return msg.getContentRaw().split(" ");
     }
 
-    private boolean isCMD(GuildConfiguration c, Message msg) {
+    public static boolean isCMD(GuildInfo c, Message msg) {
         return msg.getContentRaw().startsWith(c.getPrefixCommand());
     }
 

@@ -12,5 +12,6 @@ public @interface CommandInfo {
     String[] aliases();
     String permissionGroup();
     boolean fromPrivateChat();
+    String descriptionID();
 
 }

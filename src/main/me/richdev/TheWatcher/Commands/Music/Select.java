@@ -5,7 +5,7 @@ import me.richdev.TheWatcher.Commands.CommandHandler;
 import me.richdev.TheWatcher.Commands.CommandInfo;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-@CommandInfo(aliases = { "select", "sel" }, permissionGroup = "", fromPrivateChat = true)
+@CommandInfo(aliases = { "select", "sel" }, permissionGroup = "", fromPrivateChat = true, descriptionID = "")
 public class Select extends Command {
 
 	@Override

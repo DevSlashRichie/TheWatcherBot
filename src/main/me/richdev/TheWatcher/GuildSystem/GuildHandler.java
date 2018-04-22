@@ -8,7 +8,7 @@ public class GuildHandler {
     private Set<GuildInfo> guilds;
 
     public GuildHandler() {
-        guilds = new HashSet<>();g
+        guilds = new HashSet<>();
     }
 
     public void registerGuild(GuildInfo guildInfo) {

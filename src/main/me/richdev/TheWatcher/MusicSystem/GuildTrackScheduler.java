@@ -5,13 +5,15 @@ import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
+import net.dv8tion.jda.core.audio.hooks.ConnectionListener;
+import net.dv8tion.jda.core.audio.hooks.ConnectionStatus;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GuildTrackScheduler extends AudioEventAdapter {
+public class GuildTrackScheduler extends AudioEventAdapter implements ConnectionListener {
 
 	private Guild guild;
 	private Queue<PlayerTrackInfo> playerQueue = new LinkedList<>();
@@ -95,5 +97,20 @@ public class GuildTrackScheduler extends AudioEventAdapter {
 		}
 
 		return super.equals(obj);
+	}
+
+	@Override
+	public void onPing(long ping) {
+
+	}
+
+	@Override
+	public void onStatusChange(ConnectionStatus status) {
+
+	}
+
+	@Override
+	public void onUserSpeaking(User user, boolean speaking) {
+
 	}
 }

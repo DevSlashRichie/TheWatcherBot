@@ -1,0 +1,32 @@
+{
+  "commands": {
+    "music": {
+      "execute": {
+        "play": "",
+        "select": "",
+        "join": "",
+        "list": ""
+      },
+      "help": {
+        "play": "Busca alguna canción para reproducir en youtube o soundcloud.",
+        "select": "Selecciona alguna canción de los resultados de busqueda. \n TIP: usa primero >play.",
+        "join": "Conecta el bot a tu canal.",
+        "list": "Muestra la lista de repodrucción actual."
+      }
+    },
+    "ranking": {
+      "execute": {
+        "getmygold": "$user **|** Tienes $gold de oro.",
+        "showranks": "$user **|** Los rangos son: \n $ranks"
+      },
+      "help": {
+        "getmygold": "Muestra la cantidad de oro que tienes.",
+        "showranks": "Muestra todos los rangos.",
+        "shop": "Compra rangos."
+      }
+    },
+    "miscellaneous": {
+      "ping": "Pong!"
+    }
+  }
+}

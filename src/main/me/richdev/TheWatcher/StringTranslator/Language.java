@@ -1,6 +1,6 @@
 package me.richdev.TheWatcher.StringTranslator;
 
-public enum Lenguage {
+public enum Language {
     SPANISH,
     ENGLISH
 }

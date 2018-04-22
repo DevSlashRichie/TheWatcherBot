@@ -3,7 +3,7 @@ package me.richdev.TheWatcher.Commands;
 import me.richdev.TheWatcher.Commands.List.Ping;
 import me.richdev.TheWatcher.Commands.Music.Join;
 import me.richdev.TheWatcher.Commands.Music.Play;
-import me.richdev.TheWatcher.GuildSystem.GuildConfiguration;
+import me.richdev.TheWatcher.GuildSystem.GuildInfo;
 import me.richdev.TheWatcher.Main;
 import me.richdev.TheWatcher.Utils.ColorUtil;
 import me.richdev.TheWatcher.Utils.MessageUtils;
@@ -16,7 +16,6 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
@@ -81,7 +80,7 @@ public class CommandHandler extends ListenerAdapter {
         return msg.getContentRaw().split(" ");
     }
 
-    private boolean isCMD(GuildConfiguration c, Message msg) {
+    public static boolean isCMD(GuildInfo c, Message msg) {
         return msg.getContentRaw().startsWith(c.getPrefixCommand());
     }
 

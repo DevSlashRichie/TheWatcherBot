@@ -1,8 +1,11 @@
 package me.richdev.TheWatcher;
 
 import me.richdev.TheWatcher.Commands.CommandHandler;
-import me.richdev.TheWatcher.GuildSystem.GCHandler;
+import me.richdev.TheWatcher.GuildSystem.GuildGeneralListener;
+import me.richdev.TheWatcher.GuildSystem.GuildHandler;
 import me.richdev.TheWatcher.MusicSystem.PlayerManager;
+import me.richdev.TheWatcher.RankingSystem.Handling.RankingListener;
+import me.richdev.TheWatcher.StringTranslator.SpecialString;
 import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.bot.sharding.ShardManager;
 import net.dv8tion.jda.core.entities.Game;
@@ -14,7 +17,7 @@ import javax.security.auth.login.LoginException;
 
 public class Main {
 
-    private GCHandler guildsHandler;
+    private GuildHandler guildsHandler;
     private static Main instance;
     private ShardManager shardManager;
     private PlayerManager playerManager;
@@ -22,7 +25,8 @@ public class Main {
 
     public static void main(String[] args) {
         instance = new Main();
-        instance.setup();
+        SpecialString.getTranslation("");
+        //instance.setup();
     }
 
     public void setup() {
@@ -31,7 +35,7 @@ public class Main {
             DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
             builder.setShardsTotal(2);
             builder.setToken("NDMxNzA3OTgwNzAyOTQxMTk0.DairIA.KNKFz_X25FQBrlzJ6FPCz0CsmUE");
-            builder.addEventListeners(new Listener(), new CommandHandler());
+            builder.addEventListeners(new Listener(), new CommandHandler(), new RankingListener(), new GuildGeneralListener());
             builder.setGameProvider(shardId -> Game.of(Game.GameType.DEFAULT, ">help | Shard #" + shardId));
             shardManager = builder.build();
         } catch (LoginException e) {
@@ -39,14 +43,14 @@ public class Main {
             return;
         }
         instance = this;
-        guildsHandler = new GCHandler();
+        guildsHandler = new GuildHandler();
     }
 
     public static Main getInstance() {
         return instance;
     }
 
-    public GCHandler getGuildsHandler() {
+    public GuildHandler getGuildsHandler() {
         return guildsHandler;
     }
 

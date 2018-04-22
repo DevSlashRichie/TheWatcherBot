@@ -19,12 +19,11 @@ import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.List;
 
-@CommandInfo(aliases = { "play" }, permissionGroup = "", fromPrivateChat = true)
+@CommandInfo(aliases = { "play" }, permissionGroup = "", fromPrivateChat = true, descriptionID = "")
 public class Play extends Command {
 
 	private Pattern trustedHostsPattern = Pattern.compile("(?:www.)?(?:youtube.com|youtu.be|soundcloud.com|twitch.tv|twitch.com|bandcamp.com|vimeo.com|beam.pro|mixer.com)");

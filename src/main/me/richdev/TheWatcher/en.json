@@ -1,0 +1,17 @@
+{
+  "commands": {
+    "music": {
+      "play": "",
+      "select": "",
+      "join": "",
+      "list": ""
+    },
+    "ranking": {
+      "getmygold": "",
+      "showranks": ""
+    },
+    "miscellaneous": {
+      "ping": "Pong!"
+    }
+  }
+}

@@ -1,5 +1,7 @@
 package me.richdev.TheWatcher.GuildSystem;
 
+import me.richdev.TheWatcher.StringTranslator.Language;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +11,7 @@ public class GuildInfo {
 
     // GENERAL CONFIGURATIONS
     private String prefixCommand;
+    private Language language;
 
     // CONFIGURATION MODULES
 
@@ -19,6 +22,8 @@ public class GuildInfo {
     public GuildInfo(String ID) {
         this.ID = ID;
         this.prefixCommand = ">";
+        this.language = Language.SPANISH; // TODO: Change to English.
+
         this.userStorage = new HashSet<>();
     }
 
@@ -69,6 +74,11 @@ public class GuildInfo {
             userStorage.remove(user);
     }
 
+    public Language getLanguage() {
+        return language;
+    }
 
-
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
 }

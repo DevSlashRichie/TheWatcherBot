@@ -1,0 +1,49 @@
+{
+  "commands": {
+    "music": {
+      "execute": {
+        "play": "",
+        "select": "",
+        "join": "",
+        "list": ""
+      },
+      "help": {
+        "play": "Busca alguna canción para reproducir en youtube o soundcloud.",
+        "select": "Selecciona alguna canción de los resultados de busqueda. \n TIP: usa primero >play.",
+        "join": "Conecta el bot a tu canal.",
+        "list": "Muestra la lista de repodrucción actual."
+      }
+    },
+    "ranking": {
+      "execute": {
+        "getmygold": "{0} **|** Tienes {1} de oro.",
+        "showranks": "{0} **|** Los rangos son: \n $ranks"
+      },
+      "help": {
+        "getmygold": "Muestra la cantidad de oro que tienes.",
+        "showranks": "Muestra todos los rangos.",
+        "shop": "Compra rangos."
+      }
+    },
+    "miscellaneous": {
+      "ping": "Pong!",
+      "help": "Muestra el mensaje de ayuda."
+    },
+    "error": {
+      "notfound": {
+        "title": "Comando no encontrado.",
+        "description": "Puedes usar `>help` si necesitas ayuda."
+      },
+      "justguild": {
+        "title": "¡No puedes usar este comando aquí!",
+        "description": "Este comando sólo puede ser usado en un servidor de discord (Guild)."
+      }
+    }
+  },
+  "ranking": {
+    "events": {
+      "getgold": "{0} **|** Encontraste **{1}** de oro!"
+    }
+  },
+  "test": "Test placeholder :)"
+}

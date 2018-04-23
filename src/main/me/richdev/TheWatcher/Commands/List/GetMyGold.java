@@ -10,7 +10,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.text.DecimalFormat;
 
-@CommandInfo(aliases = { "gold" }, permissionGroup = "", fromPrivateChat = false, descriptionID = "null")
+@CommandInfo(aliases = { "getmygold", "gold" }, permissionGroup = "", fromPrivateChat = false, descriptionID = "commands.ranking.help.getmygold")
 public class GetMyGold extends Command {
 
     @Override
@@ -21,7 +21,7 @@ public class GetMyGold extends Command {
 
         DecimalFormat df = new DecimalFormat();
         df.setMaximumFractionDigits(2);
-        chat.sendMessage(e.getAuthor().getAsMention() + " | You have **" + df.format(user.getGold()) + "** of gold.");
+        chat.sendMessage(info.translate("commands.ranking.execute.getmygold", e.getAuthor().getAsMention(), df.format(user.getGold())));
     }
 
 }

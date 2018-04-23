@@ -33,7 +33,8 @@ public class RankingListener extends ListenerAdapter {
 
             DecimalFormat df = new DecimalFormat();
             df.setMaximumFractionDigits(2);
-            e.getChannel().sendMessage(e.getAuthor().getAsMention() + " **|** You found **" + df.format(add) + "** of gold!").queue(msg -> msg.delete().queueAfter(10, TimeUnit.SECONDS));
+            // e.getChannel().sendMessage(e.getAuthor().getAsMention() + " **|** You found **" + df.format(add) + "** of gold!").queue(msg -> msg.delete().queueAfter(10, TimeUnit.SECONDS));
+            e.getChannel().sendMessage(info.translate("ranking.events.getgold", e.getAuthor().getAsMention(), df.format(add))).queue(msg -> msg.delete().queueAfter(10, TimeUnit.SECONDS));
         }
 
     }

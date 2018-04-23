@@ -19,7 +19,6 @@ import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.List;
@@ -35,7 +34,7 @@ public class Play extends Command {
 			sender.sendBeautifulMessage(
 					new EmbedBuilder()
 							.setTitle("Uso incorrecto.")
-							.setDescription("Especifica un link (URL) o un término de búsqueda.\n\n**Uso:**\n`1. /play <URL>`\n`2. /play <Búsqueda>`")
+							.setDescription("Especifica un link (URL) o un término de búsqueda.\n\n**Uso:**\n`1. >play <URL>`\n`2. >play <Búsqueda>`")
 							.build()
 			);
 		} else {
@@ -180,6 +179,11 @@ public class Play extends Command {
 									}
 
 									private void publishResults(List<AudioTrack> scResults) {
+										if(ytResults.isEmpty() && scResults.isEmpty()) {
+											m.editMessage(new EmbedBuilder().setTitle("Sin resultados.").setDescription("_Intenta con otra búsqueda._").build()).queue();
+											return;
+										}
+
 										long totalTime = System.currentTimeMillis() - timeStart;
 
 										EmbedBuilder builder = new EmbedBuilder();

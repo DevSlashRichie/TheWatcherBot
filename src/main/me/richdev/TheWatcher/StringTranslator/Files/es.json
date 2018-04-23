@@ -16,8 +16,8 @@
     },
     "ranking": {
       "execute": {
-        "getmygold": "$user **|** Tienes $gold de oro.",
-        "showranks": "$user **|** Los rangos son: \n $ranks"
+        "getmygold": "{0} **|** Tienes {1} de oro.",
+        "showranks": "{0} **|** Los rangos son: \n $ranks"
       },
       "help": {
         "getmygold": "Muestra la cantidad de oro que tienes.",
@@ -26,7 +26,24 @@
       }
     },
     "miscellaneous": {
-      "ping": "Pong!"
+      "ping": "Pong!",
+      "help": "Muestra el mensaje de ayuda."
+    },
+    "error": {
+      "notfound": {
+        "title": "Comando no encontrado.",
+        "description": "Puedes usar `>help` si necesitas ayuda."
+      },
+      "justguild": {
+        "title": "¡No puedes usar este comando aquí!",
+        "description": "Este comando sólo puede ser usado en un servidor de discord (Guild)."
+      }
     }
-  }
+  },
+  "ranking": {
+    "events": {
+      "getgold": "{0} **|** Encontraste **{1}** de oro!"
+    }
+  },
+  "test": "Test placeholder :)"
 }

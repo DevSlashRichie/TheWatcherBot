@@ -2,19 +2,36 @@ package me.richdev.TheWatcher.StringTranslator;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sun.istack.internal.NotNull;
+import me.richdev.TheWatcher.Utils.Validate;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 
+/**
+ * @since 1.0 BETA
+ * @version 1.0
+ */
 public class SpecialString {
 
-    public static String getTranslation(String ID) {
-        String search = "commands.music.help.play";
-        String[] ob = search.split("\\.");
+    /**
+     *
+     * Get the translation of a requried MSG.
+     *
+     * @param language The language you require.
+     * @param msgID The ID of the require msg.
+     * @return The translated message.
+     */
+    public static String getTranslation(@NotNull Language language, @NotNull String msgID) {
+        Validate.isEmpty(msgID, "The ID of the message can't be null.");
+
+        String[] ob = msgID.split("\\.");
         JsonObject jsonObject = null; //new JsonParser().parse("{\"name\": {\"last\": \"ROd\"}}").getAsJsonObject();
 
-        try (Reader reader = new FileReader("C:/Users/7766/Documents/safe/es.json")) {
+        InputStream in = SpecialString.class.getResourceAsStream("Files/" + language.getFileString());
+        try (Reader reader = new InputStreamReader(in, "UTF-8")) {
             jsonObject = new JsonParser().parse(reader).getAsJsonObject();
         } catch (IOException e) {
             e.printStackTrace();
@@ -26,11 +43,16 @@ public class SpecialString {
 
         int i = 1;
         for (String s : ob) {
+            if(found == null || found.get(s) == null)
+                throw new NullPointerException("We couldn't found that section of the translation config");
+
             if(i != ob.length) {
                 //System.out.println(found);
+                if(!(found.get(s) instanceof JsonObject))
+                    throw new NullPointerException("We couldn't found that translation.");
                 found = found.get(s).getAsJsonObject();
             } else {
-                System.out.println(found.get(s).getAsString());
+                return found.get(s).getAsString();
             }
             i++;
         }

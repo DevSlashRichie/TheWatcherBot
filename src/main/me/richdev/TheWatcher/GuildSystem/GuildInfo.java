@@ -78,6 +78,10 @@ public class GuildInfo {
         return language;
     }
 
+    public String translate(String ID, Object... rep) {
+        return language.translate(ID, rep);
+    }
+
     public void setLanguage(Language language) {
         this.language = language;
     }

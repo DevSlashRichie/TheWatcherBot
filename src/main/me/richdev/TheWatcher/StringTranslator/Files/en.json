@@ -1,0 +1,32 @@
+{
+  "commands": {
+    "music": {
+      "execute": {
+        "play": "",
+        "select": "",
+        "join": "",
+        "list": ""
+      },
+      "help": {
+        "play": "Search any song to be played from youtube or soundcloud.",
+        "select": "Sellect a song from the list. \n TIP: Use **>play** first.",
+        "join": "Connect the bot to your channel.",
+        "list": "Show the current queue list."
+      }
+    },
+    "ranking": {
+      "execute": {
+        "getmygold": "$user **|** You have $gold of gold.",
+        "showranks": "$user **|** The ranks are: \n $ranks"
+      },
+      "help": {
+        "getmygold": "Show the amount of gold you have.",
+        "showranks": "Shows every rank.",
+        "shop": "Buy ranks."
+      }
+    },
+    "miscellaneous": {
+      "ping": "Pong!"
+    }
+  }
+}

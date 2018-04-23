@@ -5,7 +5,7 @@ import me.richdev.TheWatcher.Commands.CommandHandler;
 import me.richdev.TheWatcher.Commands.CommandInfo;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-@CommandInfo(aliases = { "list", "playlist" }, permissionGroup = "", fromPrivateChat = true, descriptionID = "")
+@CommandInfo(aliases = { "list", "playlist" }, permissionGroup = "", fromPrivateChat = true, descriptionID = "test")
 public class List extends Command {
 
 	@Override

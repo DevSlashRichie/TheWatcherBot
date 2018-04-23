@@ -11,7 +11,7 @@ import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-@CommandInfo(aliases = { "join" }, permissionGroup = "", fromPrivateChat = true, descriptionID = "")
+@CommandInfo(aliases = { "join" }, permissionGroup = "", fromPrivateChat = true, descriptionID = "test")
 public class Join extends Command {
 
 	@Override

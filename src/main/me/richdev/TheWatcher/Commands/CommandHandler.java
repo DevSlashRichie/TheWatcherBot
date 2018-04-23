@@ -1,5 +1,6 @@
 package me.richdev.TheWatcher.Commands;
 
+import me.richdev.TheWatcher.Commands.List.GetMyGold;
 import me.richdev.TheWatcher.Commands.List.Ping;
 import me.richdev.TheWatcher.Commands.Music.Join;
 import me.richdev.TheWatcher.Commands.Music.Play;
@@ -24,7 +25,13 @@ public class CommandHandler extends ListenerAdapter {
     private Set<Command> registeredCommands;
     public CommandHandler() {
         registeredCommands = new HashSet<>();
+
+        // GENERAL COMMANDS
         registeredCommands.add(new Ping());
+        registeredCommands.add(new GetMyGold());
+
+        // MUSIC COMMANDS
+
         registeredCommands.add(new Join());
         registeredCommands.add(new Play());
     }
@@ -33,22 +40,47 @@ public class CommandHandler extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent e) {
 
         if(e.getAuthor() == null || e.getChannel() == null) return;
+        if(e.getAuthor().isBot()) return;
+        if(e.isFromType(ChannelType.PRIVATE)) return; // NEED TO FIX THIS.
+
+        GuildInfo guildInfo = Main.getInstance().getGuildsHandler().getGuild(e.getGuild().getId());
+        ChatSender chat = new ChatSender(e);
+
+        if(guildInfo == null) {
+            chat.sendBeautifulMessage(new EmbedBuilder().setTitle("Something went wrong.").setDescription("Please report this to an admin").setColor(Color.RED).build());
+            return;
+        }
 
         if(!isCMD(Main.getInstance().getGuildsHandler().getGuild(e.getGuild().getId()), e.getMessage())) return;
-
-        if(e.getAuthor().isBot()) return;
 
         String[] args = translateArguments(e.getMessage());
 
         if(args[0].length() == 1) return;
 
-        ChatSender chat = new ChatSender(e);
+
         String cmd = args[0].substring(1); // > CMD || Retrieving cmd without the prefix.
 
-        Command search = searchCommand(cmd);
+        if (cmd.equalsIgnoreCase("help")) {
 
+            StringBuilder sb = new StringBuilder();
+            for (Command registeredCommand : registeredCommands) {
+                CommandInfo commandInfo = registeredCommand.getClass().getAnnotation(CommandInfo.class);
+
+                // TODO: MAKE A BETTER MESSAGE :)
+
+                sb.append(registeredCommand.getClass().getSimpleName()).append(" >> ")
+                    .append(guildInfo.translate(commandInfo.descriptionID()))
+                .append("\n");
+
+            }
+
+            chat.sendMessage(sb.toString());
+            return;
+        }
+
+        Command search = searchCommand(cmd);
         if (search == null) {
-            chat.sendBeautifulMessage(new EmbedBuilder().setTitle("Comando no encontrado").setDescription("Puedes usar `>help` si necesitas ayuda.").setColor(Color.RED).build());
+            chat.sendBeautifulMessage(new EmbedBuilder().setTitle(guildInfo.translate("commands.error.notfound.title")).setDescription(guildInfo.translate("commands.error.notfound.description")).setColor(Color.RED).build());
             return;
         }
 
@@ -60,7 +92,7 @@ public class CommandHandler extends ListenerAdapter {
          CommandInfo commandInfo = search.getClass().getAnnotation(CommandInfo.class);
 
         if(!commandInfo.fromPrivateChat() && e.isFromType(ChannelType.PRIVATE)) {
-            chat.sendBeautifulMessage(new EmbedBuilder().setTitle("¡No puedes usar este comando aquí!").setDescription("Este comando sólo puede ser usado en un servidor de discord (Guild).").build());
+            chat.sendBeautifulMessage(new EmbedBuilder().setTitle(guildInfo.translate("commands.error.justguild.title")).setDescription(guildInfo.translate("commands.error.justguild.description")).build());
         } else {
             //Nota: Eliminamos el args[0], recorremos el resto de argumentos a la izquierda ya que la variable
             //"cmd" contiene el label del comando ejecutado.

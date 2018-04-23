@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@CommandInfo(aliases = { "play" }, permissionGroup = "", fromPrivateChat = true, descriptionID = "")
+@CommandInfo(aliases = { "play" }, permissionGroup = "", fromPrivateChat = true, descriptionID = "test")
 public class Play extends Command {
 
 	private Pattern trustedHostsPattern = Pattern.compile("(?:www.)?(?:youtube.com|youtu.be|soundcloud.com|twitch.tv|twitch.com|bandcamp.com|vimeo.com|beam.pro|mixer.com)");

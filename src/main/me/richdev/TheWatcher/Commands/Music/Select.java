@@ -13,7 +13,7 @@ import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import java.util.List;
 
-@CommandInfo(aliases = { "select", "sel" }, permissionGroup = "", fromPrivateChat = true, descriptionID = "")
+@CommandInfo(aliases = { "select", "sel" }, permissionGroup = "", fromPrivateChat = true, descriptionID = "test")
 public class Select extends Command {
 
 	@Override

@@ -29,8 +29,8 @@ public class Main {
 
     public static void main(String[] args) {
         instance = new Main();
-         //System.out.println(Language.SPANISH.translate("ranking.events.getmygold", 10));
-         instance.setup();
+        //System.out.println(Language.SPANISH.translate("ranking.events.getmygold", 10));
+        instance.setup();
     }
 
     public void setup() {

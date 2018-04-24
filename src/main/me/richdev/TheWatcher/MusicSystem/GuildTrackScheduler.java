@@ -5,11 +5,11 @@ import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
+import me.richdev.TheWatcher.GuildSystem.GuildInfo;
 import me.richdev.TheWatcher.Main;
 import me.richdev.TheWatcher.Utils.BotUtil;
 import me.richdev.TheWatcher.Utils.ColorUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.audio.hooks.ConnectionListener;
 import net.dv8tion.jda.core.audio.hooks.ConnectionStatus;
@@ -18,6 +18,7 @@ import net.dv8tion.jda.core.entities.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -28,6 +29,8 @@ import java.util.stream.Collectors;
 public class GuildTrackScheduler extends AudioEventAdapter implements ConnectionListener {
 
 	private Guild guild;
+	private GuildInfo guildInfo;
+
 	private Queue<PlayerTrackInfo> playerQueue = new LinkedList<>();
 	private PlayerTrackInfo lastTrack = null;
 	private Function<Void,Void> playingMessageRemoveFunction = null;
@@ -35,10 +38,19 @@ public class GuildTrackScheduler extends AudioEventAdapter implements Connection
 
 	GuildTrackScheduler(Guild guild) {
 		this.guild = guild;
+		this.guildInfo = Main.getInstance().getGuildsHandler().getGuild(guild.getId());
 	}
 
 	private TextChannel findAppropiateChannelForMessages() {
 		//TODO: Configuraciones para configurar el canal de música.
+
+		if (guildInfo.getMusicChannelID().length() > 0) {
+			Optional<TextChannel> fromConfig = guild.getTextChannels().stream().filter(found -> found.getId().equals(guildInfo.getMusicChannelID())).findFirst();
+
+			if(fromConfig.isPresent())
+			    return (fromConfig.get());
+		}
+
 		List<TextChannel> channels = guild.getTextChannels();
 		return channels.stream().filter(t -> t.getName().toLowerCase().contains("music") || t.getName().toLowerCase().contains("musica")).findAny().orElseGet(() -> {
 			if(!channels.isEmpty()) {
@@ -191,6 +203,9 @@ public class GuildTrackScheduler extends AudioEventAdapter implements Connection
 			EmbedBuilder buildToPublish = new EmbedBuilder(embed);
 			buildToPublish.setDescription(embed.getDescription().replace("{PROGRESS_BAR}", "```MARKDOWN\n[▷▷▷▷▷▷▷▷▷▷][00:00/" + BotUtil.millisToDurationFormat(track.getDuration()) + "]\n```"));
 
+			// EXPERIMENTAL || SHOULD CONFIGURATE THIS.
+			channel.getManager().setTopic("Reproduciendo: **" + track.getInfo().title + "        [▷▷▷▷▷▷▷▷▷▷][00:00/" + BotUtil.millisToDurationFormat(track.getDuration()) + "]**").queue();
+
 			channel.sendMessage(buildToPublish.build()).queue(m -> {
 				ScheduledFuture future = scheduledExecutorService.scheduleWithFixedDelay(() -> {
 					try {
@@ -211,6 +226,10 @@ public class GuildTrackScheduler extends AudioEventAdapter implements Connection
 						EmbedBuilder buildToPublish2 = new EmbedBuilder(embed);
 						buildToPublish2.setDescription(embed.getDescription().replace("{PROGRESS_BAR}", "```MARKDOWN\n[" + barReplacement.toString() + "][" + BotUtil.millisToDurationFormat(track.getPosition()) + "/" + BotUtil.millisToDurationFormat(track.getDuration()) + "]\n```"));
 						m.editMessage(buildToPublish2.build()).queue();
+
+						//EXPERIMENTAL
+                        channel.getManager().setTopic("Reproduciendo: **" + track.getInfo().title + "        [" + barReplacement.toString() + "][" + BotUtil.millisToDurationFormat(track.getPosition()) + "/" + BotUtil.millisToDurationFormat(track.getDuration()) + "]**").queue();
+
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -219,6 +238,7 @@ public class GuildTrackScheduler extends AudioEventAdapter implements Connection
 				playingMessageRemoveFunction = x -> {
 					future.cancel(true);
 					m.delete().queue();
+					channel.getManager().setTopic("Reproduciendo: **No hay nada reproduciendo**").queue();
 					return null;
 				};
 			});

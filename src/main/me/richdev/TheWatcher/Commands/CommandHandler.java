@@ -2,10 +2,9 @@ package me.richdev.TheWatcher.Commands;
 
 import me.richdev.TheWatcher.Commands.List.GetMyGold;
 import me.richdev.TheWatcher.Commands.List.Ping;
-import me.richdev.TheWatcher.Commands.Music.Select;
+import me.richdev.TheWatcher.Commands.Music.*;
+import me.richdev.TheWatcher.Commands.Music.List;
 import me.richdev.TheWatcher.GuildSystem.GuildInfo;
-import me.richdev.TheWatcher.Commands.Music.Join;
-import me.richdev.TheWatcher.Commands.Music.Play;
 import me.richdev.TheWatcher.Main;
 import me.richdev.TheWatcher.Utils.ColorUtil;
 import me.richdev.TheWatcher.Utils.MessageUtils;
@@ -35,6 +34,8 @@ public class CommandHandler extends ListenerAdapter {
         registeredCommands.add(new Join());
         registeredCommands.add(new Play());
         registeredCommands.add(new Select());
+        registeredCommands.add(new Leave());
+        registeredCommands.add(new List());
     }
 
     @Override

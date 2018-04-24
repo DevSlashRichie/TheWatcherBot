@@ -12,6 +12,7 @@ public class GuildInfo {
     // GENERAL CONFIGURATIONS
     private String prefixCommand;
     private Language language;
+    private String musicChannelID;
 
     // CONFIGURATION MODULES
 
@@ -23,6 +24,7 @@ public class GuildInfo {
         this.ID = ID;
         this.prefixCommand = ">";
         this.language = Language.SPANISH; // TODO: Change to English.
+        this.musicChannelID = "438165587277905940"; // TODO: Just for testing, DONT LEAVE IT.
 
         this.userStorage = new HashSet<>();
     }
@@ -84,5 +86,9 @@ public class GuildInfo {
 
     public void setLanguage(Language language) {
         this.language = language;
+    }
+
+    public String getMusicChannelID() {
+        return musicChannelID;
     }
 }

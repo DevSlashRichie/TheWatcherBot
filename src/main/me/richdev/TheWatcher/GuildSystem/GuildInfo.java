@@ -1,7 +1,9 @@
 package me.richdev.TheWatcher.GuildSystem;
 
+import me.richdev.TheWatcher.GuildSystem.Configuration.Config;
 import me.richdev.TheWatcher.StringTranslator.Language;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ public class GuildInfo {
     private String musicChannelID;
 
     // CONFIGURATION MODULES
+    private HashMap<String, Config> configs;
 
     // USER STORAGE
     private Set<VirtualUser> userStorage;
@@ -27,6 +30,7 @@ public class GuildInfo {
         this.musicChannelID = "438165587277905940"; // TODO: Just for testing, DONT LEAVE IT.
 
         this.userStorage = new HashSet<>();
+        this.configs     = new HashMap<>();
     }
 
     public String getID() {
@@ -90,5 +94,13 @@ public class GuildInfo {
 
     public String getMusicChannelID() {
         return musicChannelID;
+    }
+
+    public void setConfig(String id, Config config) {
+        this.configs.put(id, config);
+    }
+
+    public Config getConfig(String IDe) {
+        return this.configs.get(ID);
     }
 }

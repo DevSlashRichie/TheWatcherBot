@@ -1,5 +1,6 @@
 package me.richdev.TheWatcher.Commands;
 
+import me.richdev.TheWatcher.Commands.List.Config;
 import me.richdev.TheWatcher.Commands.List.GetMyGold;
 import me.richdev.TheWatcher.Commands.List.Ping;
 import me.richdev.TheWatcher.Commands.Music.*;
@@ -14,21 +15,21 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 public class CommandHandler extends ListenerAdapter {
 
-    private Set<Command> registeredCommands;
+    private ArrayList<Command> registeredCommands;
     public CommandHandler() {
-        registeredCommands = new HashSet<>();
+        registeredCommands = new ArrayList<>();
 
         // GENERAL COMMANDS
         registeredCommands.add(new Ping());
         registeredCommands.add(new GetMyGold());
+        registeredCommands.add(new Config());
 
         // MUSIC COMMANDS
         registeredCommands.add(new Join());
@@ -102,7 +103,7 @@ public class CommandHandler extends ListenerAdapter {
             System.arraycopy(args, 1, newArgs, 0, args.length - 1);
 
             try {
-                search.execute(cmd, newArgs, e, chat);
+                search.execute(cmd, newArgs, e, chat, guildInfo);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -127,7 +128,7 @@ public class CommandHandler extends ListenerAdapter {
         return null;
     }
 
-    public class ChatSender {
+    public static class ChatSender {
         /** Channel involved in this ChatSender object. Never null. */
         MessageChannel channel;
         /** Member involved in this ChatSender object. Can be null, see: {@link #getAsMember()}  */
@@ -141,6 +142,12 @@ public class CommandHandler extends ListenerAdapter {
             this.channel = event.getChannel();
             this.member = event.getMember();
             this.user = event.getAuthor();
+        }
+
+        public ChatSender(MessageChannel channel, Member member) {
+            this.channel    = channel;
+            this.member     = member;
+            this.user       = member.getUser();
         }
 
         /**

@@ -1,10 +1,11 @@
 package me.richdev.TheWatcher.GuildSystem;
 
-import me.richdev.TheWatcher.GuildSystem.Configuration.Config;
+import me.richdev.TheWatcher.GuildSystem.Configuration.ConfigObject;
 import me.richdev.TheWatcher.StringTranslator.Language;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 public class GuildInfo {
@@ -17,10 +18,12 @@ public class GuildInfo {
     private String musicChannelID;
 
     // CONFIGURATION MODULES
-    private HashMap<String, Config> configs;
+    private LinkedHashMap<String, ConfigObject> configWithids; // SELECT ONE
 
     // USER STORAGE
     private Set<VirtualUser> userStorage;
+
+    // RANKING CONFIGURATION
 
 
     public GuildInfo(String ID) {
@@ -30,7 +33,9 @@ public class GuildInfo {
         this.musicChannelID = "438165587277905940"; // TODO: Just for testing, DONT LEAVE IT.
 
         this.userStorage = new HashSet<>();
-        this.configs     = new HashMap<>();
+
+        this.configWithids = new LinkedHashMap<>();
+        defaultConfig();
     }
 
     public String getID() {
@@ -96,11 +101,36 @@ public class GuildInfo {
         return musicChannelID;
     }
 
-    public void setConfig(String id, Config config) {
-        this.configs.put(id, config);
+
+
+    // CONFIG ----------------------------------------------------------------------------------------------------------
+
+    public HashMap<String, ConfigObject> getConfigWithIds() {
+        return configWithids;
     }
 
-    public Config getConfig(String IDe) {
-        return this.configs.get(ID);
+    public void setingConfig(String ID, ConfigObject object) {
+        configWithids.put(ID, object);
     }
+
+    public ConfigObject getConfigData(String ID) {
+        return configWithids.get(ID);
+    }
+
+    public <T> T getConfigData(String ID, Class<T> type) {
+        return (T) configWithids.get(ID);
+    }
+
+    public void defaultConfig() {
+        setingConfig("wb_msg_channel_data", new ConfigObject<>("432409065239609364")); // TODO: EDIT THIS | IS JUST FOR TEST
+        setingConfig("wb_msg_active", new ConfigObject<>(true));
+        setingConfig("wb_msg_data", new ConfigObject<>("Welcome {0} to {1}! Have fun! Any question ask {2}!"));
+        setingConfig("bye_msg_active", new ConfigObject<>(true));
+        setingConfig("bye_msg_data", new ConfigObject<>("Bye {0}!"));
+        setingConfig("private_wb_msg_active", new ConfigObject<>(true));
+        setingConfig("private_wb_msg_data", new ConfigObject<>("Welcome {0} to {1} HAVE A NICE DAY!"));
+        setingConfig("private_bye_msg_active", new ConfigObject<>(true));
+        setingConfig("private_bye_msg_data", new ConfigObject<>("See you {0}"));
+    }
+
 }

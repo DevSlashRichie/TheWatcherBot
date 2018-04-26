@@ -14,7 +14,7 @@ import java.text.DecimalFormat;
 public class GetMyGold extends Command {
 
     @Override
-    public void execute(String cmd, String[] args, MessageReceivedEvent e, CommandHandler.ChatSender chat) {
+    public void execute(String cmd, String[] args, MessageReceivedEvent e, CommandHandler.ChatSender chat, GuildInfo guildInfo) {
         GuildInfo info = Main.getInstance().getGuildsHandler().getGuild(e.getGuild().getId());
         VirtualUser user = info.getUserForced(e.getAuthor().getId());
 

@@ -29,7 +29,7 @@ public class Main {
 
     public static void main(String[] args) {
         instance = new Main();
-         //System.out.println(Language.SPANISH.translate("ranking.events.getmygold", 10));
+         //System.out.println(Language.SPANISH.translate("test", 10));
          instance.setup();
     }
 

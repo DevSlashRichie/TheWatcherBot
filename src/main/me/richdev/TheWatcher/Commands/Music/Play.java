@@ -7,6 +7,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import me.richdev.TheWatcher.Commands.Command;
 import me.richdev.TheWatcher.Commands.CommandHandler;
 import me.richdev.TheWatcher.Commands.CommandInfo;
+import me.richdev.TheWatcher.GuildSystem.GuildInfo;
 import me.richdev.TheWatcher.Main;
 import me.richdev.TheWatcher.MusicSystem.GuildTrackScheduler;
 import me.richdev.TheWatcher.MusicSystem.PlayerTrackInfo;
@@ -29,7 +30,7 @@ public class Play extends Command {
 	private Pattern trustedHostsPattern = Pattern.compile("(?:www.)?(?:youtube.com|youtu.be|soundcloud.com|twitch.tv|twitch.com|bandcamp.com|vimeo.com|beam.pro|mixer.com)");
 
 	@Override
-	public void execute(String cmd, String[] args, MessageReceivedEvent e, CommandHandler.ChatSender sender) {
+	public void execute(String cmd, String[] args, MessageReceivedEvent e, CommandHandler.ChatSender sender, GuildInfo guildInfo) {
 		if(args.length == 0) {
 			sender.sendBeautifulMessage(
 					new EmbedBuilder()

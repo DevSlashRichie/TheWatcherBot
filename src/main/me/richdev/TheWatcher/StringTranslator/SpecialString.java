@@ -5,10 +5,7 @@ import com.google.gson.JsonParser;
 import com.sun.istack.internal.NotNull;
 import me.richdev.TheWatcher.Utils.Validate;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.*;
 
 /**
  * @since 1.0 BETA
@@ -31,7 +28,7 @@ public class SpecialString {
         JsonObject jsonObject = null; //new JsonParser().parse("{\"name\": {\"last\": \"ROd\"}}").getAsJsonObject();
 
         InputStream in = SpecialString.class.getResourceAsStream("Files/" + language.getFileString());
-        try (Reader reader = new InputStreamReader(in, "UTF-8")) {
+        try (Reader reader = new FileReader(new File("C:/Users/7766/Documents/es.json"))) {
             jsonObject = new JsonParser().parse(reader).getAsJsonObject();
         } catch (IOException e) {
             e.printStackTrace();

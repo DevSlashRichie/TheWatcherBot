@@ -3,6 +3,7 @@ package me.richdev.TheWatcher.Commands.Music;
 import me.richdev.TheWatcher.Commands.Command;
 import me.richdev.TheWatcher.Commands.CommandHandler;
 import me.richdev.TheWatcher.Commands.CommandInfo;
+import me.richdev.TheWatcher.GuildSystem.GuildInfo;
 import me.richdev.TheWatcher.Main;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Guild;
@@ -15,7 +16,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 public class Leave extends Command {
 
 	@Override
-	public void execute(String cmd, String[] args, MessageReceivedEvent e, CommandHandler.ChatSender sender) {
+	public void execute(String cmd, String[] args, MessageReceivedEvent e, CommandHandler.ChatSender sender, GuildInfo guildInfo) {
 		Member member = sender.getAsMember();
 		GuildVoiceState senderVS = member.getVoiceState();
 

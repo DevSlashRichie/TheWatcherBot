@@ -4,6 +4,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import me.richdev.TheWatcher.Commands.Command;
 import me.richdev.TheWatcher.Commands.CommandHandler;
 import me.richdev.TheWatcher.Commands.CommandInfo;
+import me.richdev.TheWatcher.GuildSystem.GuildInfo;
 import me.richdev.TheWatcher.Main;
 import me.richdev.TheWatcher.MusicSystem.PlayerManager;
 import me.richdev.TheWatcher.MusicSystem.PlayerTrackInfo;
@@ -11,13 +12,14 @@ import me.richdev.TheWatcher.Utils.BotUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+
 import java.util.List;
 
 @CommandInfo(aliases = { "select", "sel" }, permissionGroup = "", fromPrivateChat = true, descriptionID = "test")
 public class Select extends Command {
 
 	@Override
-	public void execute(String cmd, String[] args, MessageReceivedEvent e, CommandHandler.ChatSender sender) {
+	public void execute(String cmd, String[] args, MessageReceivedEvent e, CommandHandler.ChatSender sender, GuildInfo guildInfo) {
 		if(args.length == 0) {
 			sender.sendBeautifulMessage(
 					new EmbedBuilder()

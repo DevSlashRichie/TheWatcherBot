@@ -1,24 +1,28 @@
 package me.richdev.TheWatcher.GuildSystem.Configuration;
 
-public class ConfigObject<T> {
+public class ConfigObject {
 
-    private T object;
+    private Object data;
+    private Class type;
 
-    public ConfigObject(T object) {
-        this.object = object;
-
+    public ConfigObject(Object data) {
+        this.data = data;
+        this.type = data.getClass();
     }
 
-    public void setObject(T object) {
-        this.object = object;
+    public boolean setData(Object data) {
+        if(!data.getClass().equals(type))
+            return false;
+
+        this.data = data;
+        return true;
     }
 
-    public T getObject() {
-        return object;
+    public Object getData() {
+        return data;
     }
 
-    public Class<T> getType() {
-        return (Class<T>) object.getClass();
+    public Class getType() {
+        return type;
     }
-
 }

@@ -1,6 +1,7 @@
 package me.richdev.TheWatcher.GuildSystem.Configuration.Modules;
 
 import me.richdev.TheWatcher.GuildSystem.Configuration.Config;
+import me.richdev.TheWatcher.GuildSystem.Configuration.ConfigObject;
 
 public class WBMessageConfig extends Config {
 
@@ -46,18 +47,18 @@ public class WBMessageConfig extends Config {
 
     @Override
     public void defaults() {
-        setConfig("wb_msg_channel_data", "432409065239609364"); // TODO: EDIT THIS | IS JUST FOR TEST
+        setConfig("wb_msg_channel_data", new ConfigObject("432409065239609364")); // TODO: EDIT THIS | IS JUST FOR TEST
 
-        setConfig("wb_msg_active", true);
-        setConfig("wb_msg_data","Welcome {0} to {1}! Have fun! Any question ask {2}!");
+        setConfig("wb_msg_active", new ConfigObject(true));
+        setConfig("wb_msg_data",new ConfigObject("Welcome {0} to {1}! Have fun! Any question ask {2}!"));
 
-        setConfig("bye_msg_active", true);
-        setConfig("bye_msg_data", "Bye {0}!");
+        setConfig("bye_msg_active", new ConfigObject(true));
+        setConfig("bye_msg_data", new ConfigObject("Bye {0}!"));
 
-        setConfig("private_wb_msg_active", true);
-        setConfig("private_wb_msg_data", "Welcome {0} to {1} HAVE A NICE DAY!");
+        setConfig("private_wb_msg_active", new ConfigObject(true));
+        setConfig("private_wb_msg_data", new ConfigObject("Welcome {0} to {1} HAVE A NICE DAY!"));
 
-        setConfig("private_bye_msg_active",true);
-        setConfig("private_bye_msg_data", "See you {0}");
+        setConfig("private_bye_msg_active",new ConfigObject(true));
+        setConfig("private_bye_msg_data", new ConfigObject("See you {0}"));
     }
 }

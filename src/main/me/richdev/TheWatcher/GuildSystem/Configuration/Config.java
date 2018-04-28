@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 
 public abstract class Config {
 
-    private LinkedHashMap<String, Object> configurations;
+    private LinkedHashMap<String, ConfigObject> configurations;
     private String callID;
 
     public Config(String callID) {
@@ -14,15 +14,15 @@ public abstract class Config {
 
     public abstract void defaults();
 
-    public void setConfig(String ID, Object object) {
+    public void setConfig(String ID, ConfigObject object) {
         this.configurations.put(ID, object);
     }
 
-    public <T> T getConfig(String ID, Class<T> type) {
-        return (T) this.configurations.get(ID);
+    public ConfigObject getConfig(String ID) {
+        return this.configurations.get(ID);
     }
 
-    public LinkedHashMap<String, Object> getConfigurations() {
+    public LinkedHashMap<String, ConfigObject> getConfigurations() {
         return configurations;
     }
 

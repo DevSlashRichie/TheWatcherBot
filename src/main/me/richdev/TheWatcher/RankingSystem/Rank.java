@@ -1,11 +1,14 @@
 package me.richdev.TheWatcher.RankingSystem;
 
+import net.dv8tion.jda.core.entities.Role;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class Rank {
 
     private String name;
+    private Role role;
 
     // GOLD MODIFING
     private int minMinedGold;
@@ -18,8 +21,10 @@ public class Rank {
 
     private Set<RankModifier> modifiers;
 
-    public Rank(String name) {
+    public Rank(String name, Role role) {
         this.name = name;
+        this.role = role;
+
         this.modifiers = new HashSet<>();
 
         // DEFAULTS
@@ -65,5 +70,9 @@ public class Rank {
 
     public int getMinMinedGold() {
         return minMinedGold;
+    }
+
+    public Role getRole() {
+        return role;
     }
 }

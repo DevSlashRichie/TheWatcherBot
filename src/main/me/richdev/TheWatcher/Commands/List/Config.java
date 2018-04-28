@@ -13,59 +13,70 @@ public class Config extends Command {
     @Override
     public void execute(String cmd, String[] args, MessageReceivedEvent e, CommandHandler.ChatSender sender, GuildInfo guildInfo) {
 
-        // EXAMPLE: >config {config_id} {value}
-        //          >config wb_msg = true
-        //          >config welcome_msg_str = "Hello how are you"
+        // EXAMPLE: >config {config_module;config_ID} {value}
+        //          >config WBM;wb_msg_active = true
+        //          >config WBM;welcome_msg_str = "Hello how are you"
 
        if(args.length == 0) {
            StringBuilder sb = new StringBuilder();
 
-           guildInfo.getConfigWithIds().forEach((k,v) -> sb.append(k).append(" >> ").append(v.getObject().toString()).append("\n"));
+           guildInfo.getConfigModules().forEach((module) -> {
+               sb.append(module.getCallID()).append(";");
+               module.getConfigurations().forEach((id, object) -> sb.append(id).append(" >> ").append(object.toString()));
+           });
+
            sender.sendMessage(sb.toString(), "Your configuration at now.", true);
        }
         if(args.length < 1) return;
 
-        ConfigObject found = guildInfo.getConfigData(args[0]);
+       String[] search = args[0].split(";");
 
-        if(found == null) {
-            sender.sendError("Esa seccción de configuración existe. \n ejectua >config para ver tu configuración y la lista de configurables.");
+       if(search.length < 1) {
+           sender.sendError("Porfavor inserta un modulo y un ID de configuración.");
+           return;
+       }
+
+        me.richdev.TheWatcher.GuildSystem.Configuration.Config  moduleConfig = guildInfo.getConfigModule(search[0]);
+
+        if(moduleConfig == null) {
+            sender.sendError("Ese module de configuración no existe. \n ejectua >config para ver tu configuración y la lista de configurables.");
             return;
         }
 
-        String o = args[1];
-        Class type = found.getType();
+        ConfigObject configSection = moduleConfig.getConfig(search[1]);
 
-        // sender.sendInfo("DEBUG: \n" + type.getSimpleName());
+        if(configSection == null) {
+            sender.sendInfo("Esta seccción de configuración no existe.");
+            return;
+        }
 
-        if(type == Boolean.class){
-            if(!(o.equalsIgnoreCase("true") || o.equalsIgnoreCase("false")
-                    || o.equalsIgnoreCase("yes") || o.equalsIgnoreCase("no"))) {
+        StringBuilder info = new StringBuilder();
 
-                sender.sendError("Para esta configuración solo puedes usar true o false");
+        for (int i = 1; i < args.length; i++) {
+            info.append(args[i]);
+        }
 
-            } else {
-                found.setObject(Boolean.parseBoolean(o));
-                sender.sendInfo("**" + args[0] + "** >> Changed to: " + args[1]);
+        if (configSection.getType() == Boolean.class) {
+            try {
+                configSection.setData(Boolean.parseBoolean(args[1]));
+            } catch (Exception ex) {
+                sender.sendError("Ese argumento no puede ir en esta configuracion, solo true o false.");
             }
-        } else if(type == String.class) {
-
-            StringBuilder ib = new StringBuilder();
-
-            for (int i = 1; i < args.length; i++) {
-                ib.append(args[i]).append(" ");
+        } else if(configSection.getType() == String.class) {
+            configSection.setData(info.toString());
+        } else if(configSection.getType() == int.class) {
+            if (!args[1].matches("[0-9]+")) {
+                sender.sendError("Esta configuación solo acepta números.");
+                return;
             }
-
-            found.setObject(ib.toString());
-            sender.sendInfo(args[0] + " >> Changed to: " + args[1]);
-
-        } else if(type == Integer.class) {
-
-            found.setObject(Integer.parseInt(o));
-            sender.sendInfo(args[0] + " >> Changed to: " + args[1]);
-
+            configSection.setData(Integer.parseInt(args[1]));
         } else {
             sender.sendInfo("Type not found.");
         }
 
+    }
+
+    private Class<?> recognizeType(Object object) {
+        return object.getClass();
     }
 }

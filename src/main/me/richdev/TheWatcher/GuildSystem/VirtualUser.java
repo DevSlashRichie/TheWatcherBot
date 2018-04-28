@@ -5,13 +5,15 @@ import me.richdev.TheWatcher.RankingSystem.Rank;
 public class VirtualUser {
 
     private String ID;
-    private Rank rank = new Rank("Test Rank"); // TODO: Remove This.
+    private GuildInfo guild;
+    private Rank rank = new Rank("Test Rank", null); // TODO: Remove This.
 
     // GOLD STORAGE
     private double gold;
 
-    public VirtualUser(String ID) {
+    public VirtualUser(String ID, GuildInfo guild) {
         this.ID = ID;
+        this.guild = guild;
     }
 
     public String getID() {
@@ -38,7 +40,11 @@ public class VirtualUser {
         return rank;
     }
 
-    public void upgradeRank() {
+    public GuildInfo getGuild() {
+        return guild;
+    }
 
+    public void setRank(Rank rank) {
+        this.rank = rank;
     }
 }
